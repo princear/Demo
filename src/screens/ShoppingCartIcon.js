@@ -48,7 +48,8 @@ render(){
             position: 'absolute', height: 25, width: 25, borderRadius: 15, backgroundColor: '#FBAA9A', left: 25, bottom: 25, alignItems: 'center', justifyContent: 'center', zIndex: 2000,
 
         }}>
-            <Text style={{ color: '#fff', fontWeight: 'bold',fontSize:16 }}>{props.cartItems.length}</Text>
+            {console.log("??????????????????????????????????",props.cartItems.CartItems.length)}
+            <Text style={{ color: '#fff', fontWeight: 'bold',fontSize:16 }}>{props.cartItems.CartItems.length}</Text>
         </View>
           <Image source={require('../../assets/images/carticon.png')} style={{width:35,height:35}}/>
           
@@ -62,7 +63,7 @@ render(){
 
 }
 const mapStateToProps = (state) => {
-  console.log(state);
+  console.log("++++++++++++++++",state);
   
   
  

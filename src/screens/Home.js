@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, ImageBackground, Text, TouchableOpacity, Linking,StyleSheet, ActivityIndicator, ScrollView } from "react-native";
+import { View, Image, ImageBackground, Text,BackHandler, TouchableOpacity, Linking,StyleSheet, ActivityIndicator, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 export default class Home extends Component {
 
@@ -11,31 +11,49 @@ export default class Home extends Component {
         
       }
 
+      UNSAFE_componentWillMount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+    
+      handleBackButtonClick() {
+    console.log('aaaaaaaaaaaaaaaaaaaaaaa')
+       // this.props.route.params.onGoBack();
+        this.props.navigation.goBack();
+        return false;
+        
+    }
+
+      goBack = () => {
+      //  this.props.route.params.onGoBack();
+        this.props.navigation.goBack();
+       
+    }
 
       componentDidMount() {
-        console.log('wokring');
-        setTimeout(() => {
+        console.log('wokringaaaaaaaaaa');
+        AsyncStorage.removeItem('login');
+      //   setTimeout(() => {
             
-        this.readData();
-        }, 1000);
+      //  // this.readData();
+      //   }, 1000);
       }
     
-      readData = async () => {
+      // readData = async () => {
      
          
-          const login = await AsyncStorage.getItem('login');
+      //     const login = await AsyncStorage.getItem('login');
     
-          if (login !== null) {
+      //     if (login == null) {
            
     
-            this.props.navigation.navigate('Home');
-          } else {
+      //       this.props.navigation.navigate('Home');
+      //     } else {
             
     
-            this.props.navigation.navigate('Auth');
-          }
+      //       this.props.navigation.navigate('Auth');
+      //     }
        
-      };
+      // };
 
      
 
@@ -49,7 +67,7 @@ export default class Home extends Component {
                     <Image style={{ marginTop: 10, resizeMode: 'contain', width:'50%', alignSelf: "center" }}
                     source={require('../../assets/images/2.png')}
                     />
-                    
+                  
                 </View>
                 <View style={{marginTop:50}}>
                     <Image style={{ width:'90%',height:250, alignSelf: "center" }}

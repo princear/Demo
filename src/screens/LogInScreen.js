@@ -3,9 +3,11 @@ import { View, Image, ImageBackground, Text,TextInput ,TouchableOpacity, Linking
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import { apiscreen } from '../Api/apiscreen';
 import AsyncStorage from "@react-native-community/async-storage";
+import { connect } from 'react-redux';
+import { LoginUser } from '../Redux/Actions/UserAction';
 
 
-export default class LogInScreen extends Component {
+ class LogInScreen extends Component {
 
   accessToken = "";
   profileDetails = "abc";
@@ -26,7 +28,9 @@ export default class LogInScreen extends Component {
 
       _onLogin = () => {
 
-       
+        this.setState({
+          isLoading:true
+        })
         const email = this.state.email;
         const password = this.state.password;
 
@@ -34,57 +38,65 @@ export default class LogInScreen extends Component {
        
          // console.log("url:"+url);
          
-         this.setState({
-          isLoading:true
-        })
+       
 
-        const url = apiscreen.base_url + apiscreen.login;
-fetch(url,
-            {
-                method: 'POST',
-                headers: 
-                {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(
-                {
+
+         
+
+          setTimeout(() => {
+            this.setState({
+              isLoading:false
+            })
+            this.props.LoginUser(email,password, this.props.navigation);
+          }, 2000);
+          
+//         const url = apiscreen.base_url + apiscreen.login;
+// fetch(url,
+//             {
+//                 method: 'POST',
+//                 headers: 
+//                 {
+//                     'Accept': 'application/json',
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify(
+//                 {
                   
  
-                  email :email,
-                  password:password,
+//                   email :email,
+//                   password:password,
                   
-                })
+//                 })
  
-            }).then((response) => response.json()).then((responseJson) =>
-            {
-              console.log("from login*** ");
-              console.log("from login*** ",responseJson.data);
-              this.setState({  isLoading:false })
-               if(responseJson.status == '1'){
-                  console.log("from login ",responseJson.data);
+//             }).then((response) => response.json()).then((responseJson) =>
+//             {
+//               console.log("from login*** ");
+//               console.log("from login*** ",responseJson.data);
+//               this.setState({  isLoading:false })
+//                if(responseJson.status == '1'){
+//                   console.log("from login ",responseJson.data);
                 
-                AsyncStorage.setItem("login",JSON.stringify(responseJson.data));
+//                 AsyncStorage.setItem("login",JSON.stringify(responseJson.data));
              
-               //this.props.navigation.goBack(null);
-                this.props.navigation.navigate("Home");
+//                //this.props.navigation.goBack(null);
+//                 this.props.navigation.navigate("AuthCheck");
 
-               }
-               else{
-                  Alert.alert('Invalid Credentials');
-               }
+//                }
+//                else{
+//                   Alert.alert('Invalid Credentials');
+//                }
  
-               this.setState({ ActivityIndicator_Loading : false });
+//                this.setState({ ActivityIndicator_Loading : false });
  
-            }).catch((error) =>
-            {
-              this.setState({
-                isLoading:false
-              })
-                console.error(error);
+//             }).catch((error) =>
+//             {
+//               this.setState({
+//                 isLoading:false
+//               })
+//                 console.error(error);
  
                
-            });
+//             });
 
       
       }
@@ -182,6 +194,16 @@ fetch(url,
     }
 }
 
+const mapStateToProps = (user) => {
+  return {
+    getuser: user
+     
+  }
+}
+
+
+
+export default connect( mapStateToProps,{LoginUser}, null)(LogInScreen);
 
 
 const styles = StyleSheet.create({

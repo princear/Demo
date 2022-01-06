@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 
 import {View, StyleSheet, Alert, Image, ActivityIndicator} from 'react-native';
+import {connect} from 'react-redux';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
-export default class AuthCheck extends Component {
+ class AuthCheck extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,17 +24,20 @@ export default class AuthCheck extends Component {
 
   readData = async () => {
  
-     
+     console.log('llllllllllllll',this.props.user.token);
       const login = await AsyncStorage.getItem('login');
+
+   // const login = this.props.user.token;
       
 
       if (login !== null) {
        
 
         this.props.navigation.replace('Home');
+        
       } else {
         
-
+      
         this.props.navigation.replace('home');
       }
    
@@ -44,11 +48,39 @@ export default class AuthCheck extends Component {
     return (
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
       
-      <ActivityIndicator size="large" color="#0000ff" />
+      <ActivityIndicator 
+     
+     color="#00ff00"
+            size="large"
+            style={{
+              backgroundColor: "rgba(1,195,181,.8)",
+              height: 80,
+              width: 80,
+            
+              zIndex: 999,
+              borderRadius: 15
+            }}
+            size="small"
+            color="#0000ff"
+             />
+             
       </View>
     );
   }
 }
+
+
+
+
+const mapStateToProps = state => {
+  return {
+    user: state.SeasonReducer,
+  };
+};
+export default connect(
+  mapStateToProps,
+  null,
+)(AuthCheck);
 
 const styles = StyleSheet.create({
   preloader: {

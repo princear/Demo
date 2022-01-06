@@ -33,6 +33,7 @@ enableScreens();
 const HomeStack = createStackNavigator();
 
 function SignInScreen1(){
+    
     return (
         // <NavigationContainer>
         <HomeStack.Navigator >
@@ -207,26 +208,9 @@ const Stack = createStackNavigator();
     function SignInScreen() {
         return (
             // <NavigationContainer>
+            
             <Stack.Navigator initialRouteName="AuthCheck">
-    
-                <Stack.Screen
-                    name="AuthCheck"
-                    component={AuthCheck}
-                    options={{
-                        title: 'AuthCheck',
-                        headerShown:false,
-                        headerStyle: {
-                            backgroundColor: '#e85b3d',
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleAlign: 'center',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                        },
-                    }}
-                />       
-
-                <Stack.Screen
+      <Stack.Screen
                     name="home"
                     component={home}
                     options={{
@@ -244,6 +228,24 @@ const Stack = createStackNavigator();
                         },
                     }}
                 />
+                <Stack.Screen
+                    name="AuthCheck"
+                    component={AuthCheck}
+                    options={{
+                        title: 'AuthCheck',
+                        headerShown:false,
+                        headerStyle: {
+                            backgroundColor: '#e85b3d',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleAlign: 'center',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                        },
+                    }}
+                />       
+
+              
                   <Stack.Screen
                     name="LogInScreen"
                     component={LogInScreen}
@@ -317,6 +319,75 @@ const Stack = createStackNavigator();
              
 
             </Stack.Navigator>
+        )
+    
+    
+    }
+
+
+
+    
+    function SignInScreen2() {
+        return (
+            // <NavigationContainer>
+            
+            <Stack.Navigator >
+      <Stack.Screen
+                    name="home"
+                    component={home}
+                    options={{
+                        
+                        title: 'home',
+                        headerShown:false,
+                        headerStyle: {
+                        backgroundColor: '#e85b3d',
+                        },
+
+                        headerTintColor: '#fff',
+                        headerTitleAlign: 'center',
+                        headerTitleStyle: {
+                        fontWeight: 'bold',
+                        },
+                    }}
+                />
+
+<Stack.Screen
+                    name="LogInScreen"
+                    component={LogInScreen}
+                    options={{
+                        title: 'LogInScreen',
+                        headerShown:false,
+                        headerStyle: {
+                            backgroundColor: '#e85b3d',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleAlign: 'center',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                        },
+                    }}
+                /> 
+
+<Stack.Screen
+                    name="AuthCheck"
+                    component={AuthCheck}
+                    options={{
+                        title: 'AuthCheck',
+                        headerShown:false,
+                        headerStyle: {
+                            backgroundColor: '#e85b3d',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleAlign: 'center',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                        },
+                    }}
+                />       
+
+
+
+</Stack.Navigator>
         )
     
     
@@ -422,7 +493,9 @@ const Stack = createStackNavigator();
         <NavigationContainer>
             <Stack.Navigator headerMode={false} >
                <Stack.Screen name="Auth" component={SignInScreen} />   
+               <Stack.Screen name="Auth1" component={SignInScreen2} /> 
                <Stack.Screen name="Home" component={TabNavigator} 
+               
                 options={{
                     title: 'Tabs',
                     headerShown:false,

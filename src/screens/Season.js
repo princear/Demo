@@ -5,9 +5,10 @@ import { apiscreen } from '../Api/apiscreen';
 import ShoppingCartIcon from './ShoppingCartIcon';
 import { widthPercentageToDP as wp,heightPercentageToDP as hp } from "react-native-responsive-screen";
 import PTRView from 'react-native-pull-to-refresh';
+ import { getseason,USerProfile } from '../Redux/Actions/GetSeasonAction';
+ import { connect } from 'react-redux';
 
-
-export default class Season extends Component {
+ class Season extends Component {
 
   
     constructor(props) {
@@ -25,90 +26,110 @@ export default class Season extends Component {
 
      
 
+
       componentDidMount = async () => {
-
-       
-
-        this.setState({
+         console.log('???????????????????????????????',this.props.Allseason.SeasonReducer.season);
+         console.log('???????????????????????????????',this.props.token,this.props.username);
+         this.setState({
    
-          loading: true,
+                loading: true,
+            
+            })
+
+        // this.props.GetSeasons.season;
+
+        setTimeout(() => {
+
+          this.setState({
+   
+            loading: false,
+        
+        })
+        this.props.getseason(this.props.navigation);
+        this.props.USerProfile(this.props.navigation);
+        }, 100);
+   
+    //     this.setState({
+   
+    //       loading: true,
       
-      })
+    //   })
       
-      const login = await AsyncStorage.getItem('login');
+    //   //const login = await AsyncStorage.getItem('login');
+    //   const login = this.props.token;
      
-      if (login !== null) {
-        console.log("aaaaaaaaaa",login)
-          let data = JSON.parse(login);
-          this.access_token = "Bearer "+ data.access_token
-          console.log("******",this.access_token);
-          this.setState({  Loading:false })
-      const url = apiscreen.base_url + apiscreen.GetSeason;
-      console.log("url:"+url);
-      fetch(url ,
-        {
-          method: 'POST',
-          headers: new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': this.access_token
+    //   if (login !== null) {
+    //     console.log("aaaaaaaaaa",login)
+    //       let data = JSON.parse(login);
+    //       this.access_token = "Bearer "+ data.access_token
+    //       console.log("******",this.access_token);
+    //       this.setState({  Loading:false })
+    //   const url = apiscreen.base_url + apiscreen.GetSeason;
+    //   console.log("url:"+url);
+    //   fetch(url ,
+    //     {
+    //       method: 'POST',
+    //       headers: new Headers({
+    //         'Content-Type': 'application/json',
+    //         'Authorization': this.access_token
             
-          // <-- Specifying the Content-Type
+    //       // <-- Specifying the Content-Type
             
-        }),
-       // body: JSON.stringify({ product_id: this.state.dataSource.shopify_product_id }) 
+    //     }),
+    //    // body: JSON.stringify({ product_id: this.state.dataSource.shopify_product_id }) 
     
 
-    }).then(response => response.json())
-          .then((responseJson) => {
-            console.log('getting data from fetch',responseJson.data.seasons)
-              setTimeout(() => {
-                  this.setState({
-                      loading: false,
-                     dataSource: responseJson.data.seasons
-                  })
-              }, 2000)
+    // }).then(response => response.json())
+    //       .then((responseJson) => {
+    //         console.log('getting data from fetch',responseJson.data.seasons)
+    //           setTimeout(() => {
+    //               this.setState({
+    //                   loading: false,
+    //                  dataSource: responseJson.data.seasons
+    //               })
+    //           }, 2000)
       
-          }).catch(function (error) {
-            console.log("-------- error ------- "+error);
-            alert("Token Expired Please Login");
-            this.props.navigation.navigate('Auth');
-         });
+    //       }).catch(function (error) {
+    //         console.log("-------- error ------- "+error);
+    //         alert("session Expired Please logout");
+    //         this.props.navigation.navigate('Auth');
+    //      });
       
 
-         const url1 = apiscreen.base_url + apiscreen.GetProfile;
-         console.log("url:"+url1);
-         fetch(url1 ,
-           {
-             method: 'POST',
-             headers: new Headers({
-               'Content-Type': 'application/json',
-               'Authorization': this.access_token
+    //      const url1 = apiscreen.base_url + apiscreen.GetProfile;
+    //      console.log("url:"+url1);
+    //      fetch(url1 ,
+    //        {
+    //          method: 'POST',
+    //          headers: new Headers({
+    //            'Content-Type': 'application/json',
+    //            'Authorization': this.access_token
                
-             // <-- Specifying the Content-Type
+    //          // <-- Specifying the Content-Type
                
-           }),
-          // body: JSON.stringify({ product_id: this.state.dataSource.shopify_product_id }) 
+    //        }),
+    //       // body: JSON.stringify({ product_id: this.state.dataSource.shopify_product_id }) 
        
    
-       }).then(response => response.json())
-             .then((responseJson) => {
-               console.log('getting data from fetch',responseJson.data.user.name)
-                 setTimeout(() => {
-                     this.setState({
-                         loading: false,
-                        profile: responseJson.data.user.name
-                     })
-                 }, 2000)
+    //    }).then(response => response.json())
+    //          .then((responseJson) => {
+    //            console.log('getting data from fetch',responseJson.data.user.name)
+    //              setTimeout(() => {
+    //                  this.setState({
+    //                      loading: false,
+    //                     profile: responseJson.data.user.name
+    //                  })
+    //              }, 2000)
          
-             }).catch(function (error) {
-               console.log("-------- error ------- "+error);
-               alert("Token Expired Please Login");
-               this.props.navigation.navigate('Auth');
-            });
+    //          }).catch(function (error) {
+    //            console.log("-------- error ------- "+error);
+    //            alert("session Expired Please logout");
+    //            this.props.navigation.navigate('Auth');
+    //         });
 
 
 
-        }
+    //     }
 
       
 
@@ -116,7 +137,8 @@ export default class Season extends Component {
 
       refresh() {
 
-     
+    //   this.props.CartItems;
+    //  this.props.getmonth();
       this.componentDidMount();
    
     }
@@ -165,7 +187,7 @@ export default class Season extends Component {
         
             }).catch(function (error) {
               console.log("-------- error ------- "+error);
-              alert("Token Expired Please Login");
+              alert("session Expired Please Login");
               this.props.navigation.navigate('LoginScreen');
            });
            
@@ -179,7 +201,7 @@ export default class Season extends Component {
       _logout = () => {
 
         AsyncStorage.removeItem('login');
-        this.props.navigation.navigate('Auth');
+        this.props.navigation.replace('Auth1');
       }
 
     render(){
@@ -213,7 +235,8 @@ export default class Season extends Component {
 
             <View style={{flexDirection:'row',width:'100%',}}>
                 <View style={{width:'50%'}}>
-                     <Text style={{padding:10}}>Welcome: {this.state.profile}</Text>
+                  {/* <Text style={{padding:10}}>Welcome: {this.state.profile}</Text> */}
+                     <Text style={{padding:10}}>Welcome: {this.props.username}........</Text>
                   <TouchableOpacity
                         onPress={() => this._logout()}
                       >
@@ -233,7 +256,7 @@ export default class Season extends Component {
                      
                     <FlatList
                         columnWrapperStyle={{justifyContent:'space-between', }}
-                        data={this.state.dataSource}
+                        data={this.props.Allseason.SeasonReducer.season}
                         keyExtractor={(item, index) => index}
                         horizontal={false}
                         numColumns={2}
@@ -305,6 +328,24 @@ export default class Season extends Component {
     }
 }
 
+
+const mapStateToProps = (getseason) => {
+  return {
+
+    Allseason: getseason,
+    token:getseason.SeasonReducer.token,
+    username:getseason.SeasonReducer.user.name
+     
+  }
+}
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//      getmonth: () => dispatch(getmonth()),    
+//   }
+// }
+
+export default connect( mapStateToProps,{getseason,USerProfile}, null)(Season);
 
 
 const styles = StyleSheet.create({

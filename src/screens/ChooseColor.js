@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import {Button, View, Image, ImageBackground,FlatList ,Text,Dimensions,BackHandler, TouchableOpacity, Linking,StyleSheet, Alert } from "react-native";
+import {Button, View, Image, ImageBackground,FlatList ,ActivityIndicator,Text,Dimensions,BackHandler, TouchableOpacity, Linking,StyleSheet, Alert } from "react-native";
 import Modal from 'react-native-modal';
 import { PieChart } from 'react-native-svg-charts'
 import { widthPercentageToDP as wp,heightPercentageToDP as hp } from "react-native-responsive-screen";
 import AsyncStorage from "@react-native-community/async-storage";
 import { apiscreen } from '../Api/apiscreen';
+import ShoppingCartIcon from './ShoppingCartIcon'
+import { connect } from 'react-redux'
 
-export default class ChooseColor extends Component {
+ class ChooseColor extends Component {
 
     
 
@@ -43,6 +45,7 @@ export default class ChooseColor extends Component {
       this.setState({
 
         isloading: true,
+        modelfalse:false
     })
 
    
@@ -79,7 +82,7 @@ export default class ChooseColor extends Component {
 
   }).then(response => response.json())
         .then((responseJson) => {
-            console.log('getting data from fetch',responseJson.data.products)
+            console.log('getting data from fetch>>>>>>>>>>>>>>>>>>',responseJson.data.products)
             setTimeout(() => {
                 this.setState({
                     isloading: false,
@@ -120,8 +123,16 @@ export default class ChooseColor extends Component {
   OPen_Popup() {
     console.log('addd')
     this.setState({
-        isPrivate: true
+        isPrivate: true,
+        isloading:true
     })
+
+    setTimeout(() => {
+      this.setState({
+       
+        isloading:false
+    })
+    }, 2000);
   }
 
 
@@ -131,6 +142,11 @@ export default class ChooseColor extends Component {
 
 
     }
+    handleRemoveProduct = (item) => {
+      console.log(item);
+      this.props.removeItem(item);
+    }
+
 
     EmptyListMessage = () =>{
          
@@ -143,6 +159,16 @@ export default class ChooseColor extends Component {
       
     render(){
 
+      
+
+      const isItemExist = (itemToFindId) => {
+        console.log('choosecolor',this.props.cartItems)
+       
+        return this.props.cartItems.findIndex(item => item.id === itemToFindId) === -1;
+      
+       }
+
+
       const { navigation } = this.props;  
       const seasonname = this.props.route.params.seasonname;
 
@@ -152,7 +178,7 @@ export default class ChooseColor extends Component {
       const Mname = this.props.route.params.Mname;
       const {labelWidth, selectedSlice} = this.state;
       const {label, value} = selectedSlice;
-      const keys = ['Red', 'Orange', 'Yellow', 'Green', 'LightBlue','Purple','White'];
+      const keys = ['Red', 'Orange', 'Yellow', 'Green', 'Blue','Purple','White'];
       const values = [35, 30, 30, 30, 30,30,30];
       const colors = ['#FFA89E', '#FED583', '#FFF184', '#C2E39C', '#A9E7FC','#C6A7FE','#fff'];
       const data = keys.map((key, index) => {
@@ -181,11 +207,36 @@ export default class ChooseColor extends Component {
       const {width, height} = Dimensions.get('window');
         return(
 
+          
+
             <ImageBackground style={{ flex: 1, width:'100%',bottom:0,top:0,bottom:-40,position:'absolute'  }} source={require('../../assets/images/bgbtmrain.png')} >
            
-         
-                
-                <TouchableOpacity
+           {(this.state.isloading) &&
+             <View style={{flex:1,justifyContent:'center',position:'absolute',top:'50%',left:'40%'}}>
+     <ActivityIndicator 
+     
+     color="#00ff00"
+            size="large"
+            style={{
+              backgroundColor: "rgba(1,195,181,.8)",
+              height: 80,
+              width: 80,
+            
+              zIndex: 999,
+              borderRadius: 15
+            }}
+            size="small"
+            color="#0000ff"
+             />
+             </View>
+
+
+    }
+
+   
+           <View style={{flexDirection:'row',width:'100%',}}>
+                  <View style={{width:'50%'}}>
+                  <TouchableOpacity
                 style={{ marginTop: 10, width: 50, height: 50, justifyContent: 'center',paddingLeft:10 }}
                 onPress={() => this.goBack()}
                >
@@ -193,6 +244,20 @@ export default class ChooseColor extends Component {
                     source={require('../../assets/images/back.png')}
                     />
               </TouchableOpacity>
+                  {/* <TouchableOpacity
+                        onPress={() => this._logout()}
+                      >
+                        <Text style={{padding:10}}>Logout</Text>
+                      </TouchableOpacity> */}
+              </View>
+                     <View style={{marginTop: 0,width:'50%',alignItems:'flex-end',paddingRight:10}}>
+                      <ShoppingCartIcon navigation={this.props.navigation}/>
+                    
+                    </View>
+             </View> 
+                
+              
+              
                 
                 <View style={{height:60,marginTop:0}}>
                 <ImageBackground style={{height:65,paddingBottom:10,resizeMode:'cover',justifyContent:'center' }}
@@ -227,7 +292,7 @@ export default class ChooseColor extends Component {
                 <Text style={{position:'absolute',top:hp('25%'),left:wp('15%'),zIndex:1}}>Purple</Text>
                 <Text style={{position:'absolute',top:hp('12%'),left:wp('32%'),zIndex:1}}>White</Text> */}
               <PieChart
-                  style={{ height:hp("60%"),width:wp("100%"),alignSelf:'center', }}
+                  style={{ height:hp("60%"),width:wp("100%"),justifyContent:'center', }}
                   outerRadius={ '100%' }
                   innerRadius={ '20%' }
                   data={data}
@@ -311,9 +376,55 @@ export default class ChooseColor extends Component {
 
 <Modal isVisible={this.state.isVisible}>
 
+
     <View style={{ backgroundColor: '#fff', height: hp('90%'),paddingBottom:10 }}>
+
+{/*       
+{(this.state.isloading) && 
+             <View style={{flex:1,justifyContent:'center',position:'absolute',top:'50%',left:'40%'}}>
+     <ActivityIndicator 
+     
+     color="#00ff00"
+            size="large"
+            style={{
+              backgroundColor: "rgba(1,195,181,.8)",
+              height: 80,
+              width: 80,
+            
+              zIndex: 999,
+              borderRadius: 15
+            }}
+            size="small"
+            color="#0000ff"
+             />
+             </View>
+
+    }
+    */}
         <View style={styles.head1}>
-            <View style={{width:wp('10%')}}>
+
+        <View style={{flexDirection:'row',width:'100%',}}>
+                  <View style={{width:'50%'}}>
+                  
+                <TouchableOpacity
+                style={{marginTop: 30, width: 50, height: 50, justifyContent: 'center',paddingLeft:10 }}
+                onPress={() => this.modelfalse()}
+               >
+                 
+                <Image style={{ height:50,resizeMode:'contain',alignSelf:'center',width:100 }}
+                    source={require('../../assets/images/back.png')}
+                />
+
+              </TouchableOpacity>
+              </View>
+                     {/* <View style={{marginTop: 30,width:'50%',alignItems:'flex-end',paddingRight:10}}>
+                      <ShoppingCartIcon navigation={this.props.navigation}/>
+                    
+                    </View> */}
+             </View>  
+
+
+            {/* <View style={{width:wp('10%')}}>
                 <TouchableOpacity
                     onPress={() => this.modelfalse()}
                     style={styles.closemodalStyle}>
@@ -321,44 +432,96 @@ export default class ChooseColor extends Component {
                     source={require('../../assets/images/back.png')}
                     />
                 </TouchableOpacity>
-            </View>
+            </View> */}
             <View>
                 <Text style={{textTransform:'uppercase',fontFamily: "FredokaOne-Regular",fontSize:14, width:wp('80%'),textAlign:"center", color: '#141821' }}>Product list</Text>
             </View>
+            {(() => { 
 
-      
-         <FlatList
+if(this.state.dataSource.length > 0)
+
+{
+  return(
+<FlatList
      
-         data={this.state.dataSource}
-         keyExtractor={(item, index) => index}
-         horizontal={false}
-         ListEmptyComponent={this.EmptyListMessage}
-         renderItem={({ item, index }) => (
-           <TouchableOpacity style={{height:120,backgroundColor:colors[index % colors.length],margin:10,borderRadius:10}}
-          //  onPress={()=> this.props.navigation.navigate('Category',{
-          //      seasonname : seasonname,
-          //      Mid:item.id,
-          //      Mname:item.name,
-          //      onGoBack:()=> this.refresh()
-          //  })}
-           >
-               <Text style={{fontFamily: "FredokaOne-Regular",fontSize:30,padding:20,zIndex:1}}>{item.name}</Text>
-             
-               {/* <Text style={{paddingRight:10,height:80,textTransform:"uppercase",fontFamily: "FredokaOne-Regular",color:'#FCD2AA',fontSize:80,textAlign:'right',alignSelf:'flex-end',position:'absolute',bottom:0,paddingBottom:0}} >{item.name}</Text>
-           */}
-           </TouchableOpacity>
-         )}
-       />    
-    
-        
+     data={this.state.dataSource}
+     keyExtractor={(item, index) => index}
+     horizontal={false}
+     //ListEmptyComponent={this.EmptyListMessage}
+     
+     renderItem={({ item, index }) => (
+     
+       <TouchableOpacity style={{height:120,backgroundColor:colors[index % colors.length],margin:10,borderRadius:10}}
+      //  onPress={()=> this.props.navigation.navigate('Category',{
+      //      seasonname : seasonname,
+      //      Mid:item.id,
+      //      Mname:item.name,
+      //      onGoBack:()=> this.refresh()
+      //  })}
+     
+      onPress={() =>this.props.addItemToCart({
+                        
+        name:item.name,
+        id:item.id
+      
+      })} 
+      disabled={isItemExist(item.id) ? false : true }  
+     
+       >
+           <Text style={{fontFamily: "FredokaOne-Regular",fontSize:30,padding:20,zIndex:1}}>{item.name}</Text>
+         
+           {/* <Text style={{paddingRight:10,height:80,textTransform:"uppercase",fontFamily: "FredokaOne-Regular",color:'#FCD2AA',fontSize:80,textAlign:'right',alignSelf:'flex-end',position:'absolute',bottom:0,paddingBottom:0}} >{item.name}</Text>
+       */}
+     
+     {isItemExist(item.id) ?
+     
+     <View style={{marginRight:10}}>
+     <Text style={{fontSize:18,backgroundColor:'#daf9e9',paddingTop:5,width:40,height:36,alignContent:'center',borderRadius:20,textAlign:'center',justifyContent:'center',alignContent:'flex-end',alignSelf:'flex-end'}}>+</Text>
+     </View>      
+            :
+     
+     <TouchableOpacity style={{}} key={item.id}  onPress={() => this.handleRemoveProduct(item)} >
        
+         <Image style={{ width:30,height:36,alignContent:'flex-end',alignSelf:'flex-end',marginRight:10 }}
+              source={require('../../assets/images/tick.png')}
+          />
+     
+     </TouchableOpacity>
+          
+          }
+       </TouchableOpacity>
+     )}
+     
+     
+     
+     />   
+  )
+}
+
+else{
+
+  return (
+  
+  <View style={{justifyContent:'center'}}>
+         
+               <Text style={{textAlign:'center',alignSelf:'center',marginTop:hp('30%')}}>No Data Found...</Text>
+        </View>
+  )}
+            })()}
            
+
+ 
+         
+          
+          
+          
+
+
+       
+      
+      
       
         </View>
-
-      
-      
-                   
                  
                       </View>
                   </Modal>
@@ -371,7 +534,22 @@ export default class ChooseColor extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+  return {
+      cartItems: state.CartItems,
+      
+     
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+      addItemToCart: (product) => dispatch({ type: 'ADD_TO_CART', payload: product  }),
+      removeItem: (product) => dispatch({ type: 'REMOVE_FROM_CART', payload: product })
+  }
+}
 
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChooseColor);
 
 const styles = StyleSheet.create({
 
@@ -387,9 +565,11 @@ catcircle:{
   backgroundColor:'white',
   width:120,
   height:120,
-  top:'30%',
+  top:'33%',
+ 
   borderRadius:120/2,
   alignSelf:'center',
+  justifyContent:'center',
   overflow:'hidden',
   paddingTop:0,
   margin:10,

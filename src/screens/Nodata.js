@@ -237,7 +237,7 @@ import { widthPercentageToDP as wp,heightPercentageToDP as hp } from "react-nati
                           source={require('../../assets/images/headerBG.png')}>
                                 
                                 <View style={{flex:1,alignItems:'flex-start',justifyContent:'center',paddingLeft:50,marginTop:10,paddingTop:5,paddingBottom:5}}>
-                                    <Text style={{fontFamily: "FredokaOne-Regular",fontSize:14,textTransform:'uppercase'}}>Here is your Recipes</Text>
+                                    <Text style={{fontFamily: "FredokaOne-Regular",fontSize:14,textTransform:'uppercase'}}>Here are your Recipes</Text>
                                 
                                 </View>
 

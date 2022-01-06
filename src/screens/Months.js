@@ -170,7 +170,12 @@ export default class Months extends Component {
     }
     }
 
+    _logout = () => {
 
+      AsyncStorage.removeItem('login');
+      this.props.navigation.navigate('Auth');
+    }
+    
     render(){
         const { navigation } = this.props;  
         const seasonname = this.props.route.params.seasonname;

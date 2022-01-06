@@ -4,8 +4,10 @@ import { apiscreen } from '../Api/apiscreen';
 import AsyncStorage from "@react-native-community/async-storage";
 import ShoppingCartIcon from './ShoppingCartIcon';
 import { widthPercentageToDP as wp,heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { getseason } from '../Redux/Actions/GetSeasonAction';
+ import { connect } from 'react-redux';
 
-export default class Category extends Component {
+ class Category extends Component {
 
     constructor(props) {
         super(props);
@@ -20,7 +22,7 @@ export default class Category extends Component {
       }
 
       componentDidMount = async () => {
-
+       // this.props.season()
 
         this.setState({
 
@@ -98,6 +100,12 @@ export default class Category extends Component {
      
       this.componentDidMount();
    
+    }
+
+    _logout = () => {
+
+      AsyncStorage.removeItem('login');
+      this.props.navigation.navigate('Auth');
     }
 
 
@@ -224,6 +232,21 @@ export default class Category extends Component {
         )
     }
 }
+
+const mapStateToProps = (getseason) => {
+  return {
+    CartItems: getseason
+     
+  }
+}
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//      getmonth: () => dispatch(getmonth()),    
+//   }
+// }
+
+export default connect( mapStateToProps,{getseason}, null)(Category);
 
 
 

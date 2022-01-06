@@ -28,10 +28,6 @@ import { widthPercentageToDP as wp,heightPercentageToDP as hp } from "react-nati
         this.setState({
           loading:true,
      
-       
-        
-          
-        
       }
     
       )
@@ -107,13 +103,7 @@ import { widthPercentageToDP as wp,heightPercentageToDP as hp } from "react-nati
   
                      
             }, 2000)
-
-          
-              
-                
-          
-          
-             
+         
       
           }).catch(function (error) {
             console.log("-------- error ------- "+error);
@@ -122,14 +112,13 @@ import { widthPercentageToDP as wp,heightPercentageToDP as hp } from "react-nati
       
         }
 
-      
-
       }
 
 
      handleRemoveProduct = (item) => {
         console.log(item);
         this.props.removeItem(item);
+
       }
 
 
@@ -294,7 +283,7 @@ import { widthPercentageToDP as wp,heightPercentageToDP as hp } from "react-nati
 
 const mapStateToProps = (state) => {
   return {
-      cartItems: state,
+      cartItems: state.CartItems,
      
   }
 }
