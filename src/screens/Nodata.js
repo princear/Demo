@@ -156,10 +156,10 @@ import { widthPercentageToDP as wp,heightPercentageToDP as hp } from "react-nati
             }, 2000)
     
         })
+
         .catch(error => console.log(error))
     
       }
-
 
 
       }
@@ -241,7 +241,7 @@ import { widthPercentageToDP as wp,heightPercentageToDP as hp } from "react-nati
                                 
                                 </View>
 
-                      </ImageBackground>
+                    </ImageBackground>
                           
               </View>
 

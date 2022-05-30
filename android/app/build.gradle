@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.rainbow1"
+        applicationId "com.rainbow"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -227,10 +227,12 @@ dependencies {
 
     configurations.all {
         resolutionStrategy {
+          
             force 'com.google.android.gms:play-services-gcm:16.1.0'
             force 'com.google.android.gms:play-services-base:16.1.0'
             force 'com.google.firebase:firebase-core:16.0.9'
             force 'com.google.firebase:firebase-messaging:18.0.0'
+            force 'com.google.android.gms:play-services-ads:16.0.0'
     }
 }
 }

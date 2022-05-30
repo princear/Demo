@@ -217,7 +217,7 @@ import PTRView from 'react-native-pull-to-refresh';
      <ActivityIndicator 
      
      color="#00ff00"
-            size="large"
+           
             style={{
               backgroundColor: "rgba(1,195,181,.8)",
               height: 80,
@@ -227,7 +227,7 @@ import PTRView from 'react-native-pull-to-refresh';
               borderRadius: 15
             }}
             size="small"
-            color="#0000ff"
+         //   color="#0000ff"
              />
              </View>
     }

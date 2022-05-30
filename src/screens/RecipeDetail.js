@@ -169,7 +169,7 @@ import RNFetchBlob from 'rn-fetch-blob';
           <ActivityIndicator 
           
           color="#00ff00"
-                 size="large"
+                // size="large"
                  style={{
                    backgroundColor: "rgba(1,195,181,.8)",
                    height: 80,
@@ -180,7 +180,7 @@ import RNFetchBlob from 'rn-fetch-blob';
                    borderRadius: 15
                  }}
                  size="small"
-                 color="#0000ff"
+               //  color="#0000ff"
                   />
                   </View>
 
@@ -225,10 +225,10 @@ import RNFetchBlob from 'rn-fetch-blob';
                     />
               </TouchableOpacity>
               </View>
-                     <View style={{marginTop: 30,width:'50%',alignItems:'flex-end',paddingRight:10}}>
+                     {/* <View style={{marginTop: 30,width:'50%',alignItems:'flex-end',paddingRight:10}}>
                       <ShoppingCartIcon navigation={this.props.navigation}/>
                     
-                    </View>
+                    </View> */}
              </View>  
                 <View style={{height:60,marginTop:0}}>
                 
@@ -271,7 +271,7 @@ import RNFetchBlob from 'rn-fetch-blob';
          horizontal={false}
         
          renderItem={({ item, index }) => (
-           <TouchableOpacity style={{margin:10,borderRadius:10,padding:10}}
+           <View style={{margin:10,borderRadius:10,padding:10}}
          
            >
                <Image style={{ height:100,alignSelf:'center',width:100 }}
@@ -279,13 +279,13 @@ import RNFetchBlob from 'rn-fetch-blob';
                     /> 
                <Text style={{fontFamily: "FredokaOne-Regular",fontSize:14,textAlign:'center'}}>{item.name}</Text>
                
-               <RenderHtml
+               {/* <RenderHtml
      
      source={{html: `${item.description}`}}
-    />
+    /> */}
              
          
-           </TouchableOpacity>
+           </View>
          )}
        />    
 

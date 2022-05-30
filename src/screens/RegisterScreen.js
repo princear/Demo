@@ -194,7 +194,7 @@ _onsubmit = () => {
      <ActivityIndicator 
      
      color="#00ff00"
-            size="large"
+           // size="large"
             style={{
               backgroundColor: "rgba(1,195,181,.8)",
               height: 80,
@@ -204,7 +204,7 @@ _onsubmit = () => {
               borderRadius: 15
             }}
             size="small"
-            color="#0000ff"
+           // color="#0000ff"
              />
              </View>
     }
@@ -260,10 +260,12 @@ onChangeText={(email) => this.setState({email})}
     </View>  
     <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 4,marginBottom:20 }}>
     <Picker
+
      selectedValue={this.state.selectedValue}
      onValueChange={(value)=>this.setState({selectedValue:value})} 
     itemStyle={{ backgroundColor: "grey", color: "blue", fontFamily:"Ebrima", fontSize:17 }}
     >
+
 {myUsers}
 </Picker>
 </View>

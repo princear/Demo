@@ -111,8 +111,8 @@ import { LoginUser } from '../Redux/Actions/UserAction';
              <View style={{flex:1,justifyContent:'center',position:'absolute',top:'50%',left:'40%'}}>
      <ActivityIndicator 
      
-     color="#00ff00"
-            size="large"
+   
+           
             style={{
               backgroundColor: "rgba(1,195,181,.8)",
               height: 80,
@@ -132,23 +132,26 @@ import { LoginUser } from '../Redux/Actions/UserAction';
                <KeyboardAwareScrollView>   
                <View style={{paddingTop:0}}>
                     <Image style={{ marginTop: 10, resizeMode: 'contain', width:'50%', alignSelf: "center" }}
-                    source={require('../../assets/images/2.png')}
+                    source={require('../../assets/images/222.png')}
                     />
                     
                 </View>
-                <View style={{}}>
+                <View style={{width:'70%',alignSelf:"center"}}>
                     <Image style={{ height:150, alignSelf: "center",resizeMode:'center' }}
                     source={require('../../assets/images/1.png')}
                     />
+
+                    <Text style={{fontFamily: "FredokaOne-Regular",textAlign:'center',fontSize:12,lineHeight:18,paddingTop:10,color:'#b67edc' }}>"Feed me colours, feed me seasonal,{'\n'} feed me rainbow!"</Text>
                     
                 </View> 
-                    <Text style={{fontFamily: "FredokaOne-Regular" ,textAlign:'center',paddingTop:20,fontSize:22}}>Sign In</Text>
-                <View style={{padding:20,marginTop:20}}>
+                  
+                <View style={{padding:20,marginTop:0}}>
+                <Text style={{fontFamily: "FredokaOne-Regular" ,textAlign:'center',padding:20,fontSize:22}}>Sign In</Text>
                     <TextInput placeholder="Email"
-                    onChangeText={(email) => this.setState({email})}
-      style={{ height: 50, borderColor: 'gray', borderWidth: 1,paddingLeft:10,marginBottom:20,fontSize:16,borderRadius:5 }}
+                     onChangeText={(email) => this.setState({email})}
+                       style={{ height: 50, borderColor: 'gray', borderWidth: 1,paddingLeft:10,marginBottom:20,fontSize:16,borderRadius:5 }}
      
-    />
+               />
       <TextInput placeholder="Password"
       onChangeText ={(password) => this.setState({password})}
       secureTextEntry={true}

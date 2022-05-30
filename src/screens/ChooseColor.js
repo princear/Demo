@@ -179,6 +179,7 @@ import { connect } from 'react-redux'
       const {labelWidth, selectedSlice} = this.state;
       const {label, value} = selectedSlice;
       const keys = ['Red', 'Orange', 'Yellow', 'Green', 'Blue','Purple','White'];
+    //  const keys = ['Red', 'Orange', 'Yellow',  'Blue','Purple',];
       const values = [35, 30, 30, 30, 30,30,30];
       const colors = ['#FFA89E', '#FED583', '#FFF184', '#C2E39C', '#A9E7FC','#C6A7FE','#fff'];
       const data = keys.map((key, index) => {
@@ -209,14 +210,14 @@ import { connect } from 'react-redux'
 
           
 
-            <ImageBackground style={{ flex: 1, width:'100%',bottom:0,top:0,bottom:-40,position:'absolute'  }} source={require('../../assets/images/bgbtmrain.png')} >
+            <ImageBackground style={{ flex: 1, width:'100%',bottom:0,top:0,bottom:0,position:'absolute'  }} source={require('../../assets/images/bgbtmrain.png')} >
            
            {(this.state.isloading) &&
              <View style={{flex:1,justifyContent:'center',position:'absolute',top:'50%',left:'40%'}}>
      <ActivityIndicator 
      
-     color="#00ff00"
-            size="large"
+    // color="#00ff00"
+         
             style={{
               backgroundColor: "rgba(1,195,181,.8)",
               height: 80,
@@ -283,18 +284,21 @@ import { connect } from 'react-redux'
                 <Text style={{position:'absolute',top:'60%',left:'15%',zIndex:1}}>LightBlue</Text>
                 <Text style={{position:'absolute',top:'45%',left:'15%',zIndex:1}}>Purple</Text>
                 <Text style={{position:'absolute',top:hp('35%'),left:'30%',zIndex:1}}>Violet</Text> */}
-                 <View style={{ justifyContent: 'center',position:'relative'}}>
-                 {/* <Text style={{position:'absolute',top:hp("15%"),right:wp("30%"),zIndex:1}}>Red</Text>
-                <Text style={{position:'absolute',top:hp("25"),right:wp("15"),zIndex:1}}>Orange</Text>
-                <Text style={{position:'absolute',top:hp('40%'),right:wp('20%'),zIndex:1}}>Yellow</Text>
-                <Text style={{position:'absolute',top:hp('45%'),right:wp('47%'),zIndex:1}}>Green</Text>
-                <Text style={{position:'absolute',top:hp('40%'),left:wp('18%'),zIndex:1}}>LightBlue</Text>
-                <Text style={{position:'absolute',top:hp('25%'),left:wp('15%'),zIndex:1}}>Purple</Text>
-                <Text style={{position:'absolute',top:hp('12%'),left:wp('32%'),zIndex:1}}>White</Text> */}
+
+                 <View style={{}}>
+
+                 <Text style={{color:'#ba5a57',fontFamily: "FredokaOne-Regular",position:'absolute',top:hp("15%"),right:wp("30%"),zIndex:1}}>Red</Text>
+                 <Text style={{color:"#c49a46",fontFamily: "FredokaOne-Regular",position:'absolute',top:hp("25"),right:wp("15"),zIndex:1}}>Orange</Text>
+                 <Text style={{color:"#d2c548",fontFamily: "FredokaOne-Regular",position:'absolute',top:hp('40%'),right:wp('20%'),zIndex:1}}>Yellow</Text>
+                 <Text style={{color:"#90bf71",fontFamily: "FredokaOne-Regular",position:'absolute',top:hp('45%'),right:wp('47%'),zIndex:1}}>Green</Text>
+                 <Text style={{color:"#4b96af",fontFamily: "FredokaOne-Regular",position:'absolute',top:hp('40%'),left:wp('18%'),zIndex:1}}>LightBlue</Text>
+                 <Text style={{color:"#6e47be",fontFamily: "FredokaOne-Regular",position:'absolute',top:hp('25%'),left:wp('15%'),zIndex:1}}>Purple</Text>
+                 <Text style={{fontFamily: "FredokaOne-Regular",position:'absolute',top:hp('15%'),left:wp('32%'),zIndex:1}}>White</Text>
+             
               <PieChart
-                  style={{ height:hp("60%"),width:wp("100%"),justifyContent:'center', }}
+                  style={{ height:hp("60%"),width:wp("100%"),justifyContent:'center', justifyContent: 'center',position:'relative' }}
                   outerRadius={ '100%' }
-                  innerRadius={ '20%' }
+                  innerRadius={ '30%' }
                   data={data}
                  
               />
@@ -302,7 +306,7 @@ import { connect } from 'react-redux'
               <ImageBackground 
                source={require('../../assets/images/spread.png')}
               style={styles.catcircle}
-            >
+            > 
 
              <TouchableOpacity style={{flex:1,justifyContent:'center',paddingTop:20}}
             onPress={()=> this.OPen_Popup()}
@@ -560,12 +564,12 @@ container:{
 },
 catcircle:{
   position:'absolute',
-  borderWidth:1,
-  borderColor:'#000',
+  //borderWidth:1,
+  //borderColor:'#000',
   backgroundColor:'white',
   width:120,
   height:120,
-  top:'33%',
+  top:'34.4%',
  
   borderRadius:120/2,
   alignSelf:'center',
